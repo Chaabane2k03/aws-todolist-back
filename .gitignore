@@ -1,0 +1,49 @@
+# Spring Boot
+*.class
+*.jar
+*.war
+*.ear
+target/
+.classpath
+.project
+.settings/
+.sts4-cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Maven
+pom.xml.tag
+pom.xml.asc
+pom.xml.releaseBackup
+release.properties
+dependency-reduced-pom.xml
+
+# Gradle
+.gradle/
+build/
+gradle-app.setting
+gradlew
+gradlew.bat
+
+# Logs
+*.log
+logs/
+
+# Database
+*.h2.db
+*.mv.db
+
+# Environment
+.env
+.env.local
+application-local.properties
+
+# OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.todoapp.grpc";
+option java_outer_classname = "TodoProto";
+
+package todo;
+
+// Service d'authentification
+service AuthService {
+  rpc Register(RegisterRequest) returns (AuthResponse);
+  rpc Login(LoginRequest) returns (AuthResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+
+// Service de gestion des todos
+service TodoService {
+  rpc CreateTodo(CreateTodoRequest) returns (TodoResponse);
+  rpc GetTodos(GetTodosRequest) returns (TodoListResponse);
+  rpc GetTodoById(GetTodoByIdRequest) returns (TodoResponse);
+  rpc UpdateTodo(UpdateTodoRequest) returns (TodoResponse);
+  rpc DeleteTodo(DeleteTodoRequest) returns (DeleteTodoResponse);
+  rpc ToggleTodoComplete(ToggleTodoCompleteRequest) returns (TodoResponse);
+}
+
+// Messages pour l'authentification
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message AuthResponse {
+  bool success = 1;
+  string message = 2;
+  string token = 3;
+  int64 user_id = 4;
+  string username = 5;
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message ValidateTokenResponse {
+  bool valid = 1;
+  int64 user_id = 2;
+  string username = 3;
+}
+
+// Messages pour les todos
+message Todo {
+  int64 id = 1;
+  int64 user_id = 2;
+  string title = 3;
+  string description = 4;
+  bool completed = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+message CreateTodoRequest {
+  string token = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message GetTodosRequest {
+  string token = 1;
+  optional bool completed = 2;
+}
+
+message GetTodoByIdRequest {
+  string token = 1;
+  int64 todo_id = 2;
+}
+
+message UpdateTodoRequest {
+  string token = 1;
+  int64 todo_id = 2;
+  string title = 3;
+  string description = 4;
+  bool completed = 5;
+}
+
+message DeleteTodoRequest {
+  string token = 1;
+  int64 todo_id = 2;
+}
+
+message ToggleTodoCompleteRequest {
+  string token = 1;
+  int64 todo_id = 2;
+}
+
+message TodoResponse {
+  bool success = 1;
+  string message = 2;
+  Todo todo = 3;
+}
+
+message TodoListResponse {
+  bool success = 1;
+  string message = 2;
+  repeated Todo todos = 3;
+}
+
+message DeleteTodoResponse {
+  bool success = 1;
+  string message = 2;
+}
